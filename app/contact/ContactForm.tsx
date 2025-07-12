@@ -49,7 +49,6 @@ export default function ContactForm({ onSubmit }: ContactFormProps) {
       });
       onSubmit();
     }, 1000);
-  );
 
   const isFormValid = formData.name && formData.email && formData.subject && formData.message;
 
