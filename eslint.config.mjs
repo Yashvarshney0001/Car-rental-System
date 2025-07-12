@@ -8,7 +8,10 @@ export default {
   languageOptions: {
     ecmaVersion: 2022,
     sourceType: "module",
-    globals: globals.browser,
+    globals: {
+      ...globals.browser,
+      ...globals.node, // ✅ Add Node.js globals (process, module, etc.)
+    },
     parser: tseslint.parser,
     parserOptions: {
       ecmaFeatures: {
@@ -25,10 +28,8 @@ export default {
     ...tseslint.configs.recommended.rules,
     ...reactPlugin.configs.recommended.rules,
 
-    // Disable React-in-scope rule for JSX:
+    // ✅ Optional customizations:
     "react/react-in-jsx-scope": "off",
-
-    // Optionally allow "any" types:
     "@typescript-eslint/no-explicit-any": "off",
   },
   settings: {
