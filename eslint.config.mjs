@@ -3,31 +3,37 @@ import globals from "globals";
 import reactPlugin from "eslint-plugin-react";
 import tseslint from "typescript-eslint";
 
-export default [
-  js.configs.recommended,
-  tseslint.configs.recommended,
-  {
-    plugins: {
-      react: reactPlugin,
+export default {
+  ignores: ["node_modules", "dist"],
+  languageOptions: {
+    ecmaVersion: 2022,
+    sourceType: "module",
+    globals: globals.browser,
+    parser: tseslint.parser,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
-    rules: {
-      // Disable the rule requiring React to be in scope for JSX:
-      "react/react-in-jsx-scope": "off",
+  },
+  plugins: {
+    react: reactPlugin,
+    "@typescript-eslint": tseslint.plugin,
+  },
+  rules: {
+    ...js.configs.recommended.rules,
+    ...tseslint.configs.recommended.rules,
+    ...reactPlugin.configs.recommended.rules,
 
-      // Optionally allow explicit 'any' types in TypeScript:
-      "@typescript-eslint/no-explicit-any": "off",
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
+    // Disable React-in-scope rule for JSX:
+    "react/react-in-jsx-scope": "off",
+
+    // Optionally allow "any" types:
+    "@typescript-eslint/no-explicit-any": "off",
+  },
+  settings: {
+    react: {
+      version: "detect",
     },
   },
-  {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-    },
-  },
-];
+};
