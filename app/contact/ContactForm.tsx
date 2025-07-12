@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -49,6 +48,7 @@ export default function ContactForm({ onSubmit }: ContactFormProps) {
       });
       onSubmit();
     }, 1000);
+  };
 
   const isFormValid = formData.name && formData.email && formData.subject && formData.message;
 
@@ -164,3 +164,4 @@ export default function ContactForm({ onSubmit }: ContactFormProps) {
     </div>
   );
 }
+
